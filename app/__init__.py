@@ -16,6 +16,14 @@ methods = ["POST"]
 
 @app.route("/orientar", methods=methods)
 def api_orientar():
-    demo_data = ["DevOps", "Frontend"]
+    perfil = {"rendimiento": {}, "intereses": []}
+
+    for asignatura in ASIGNATURAS:
+        valor = request.form.get(asignatura)
+        perfil["rendimiento"][asignatura] = valor
+
+    perfil["intereses"] = request.form.getlist("intereses")
+
+    demo_data = evaluar_perfil(perfil)
 
     return render_template("_recomendaciones.html", recomendaciones=demo_data)
