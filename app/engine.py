@@ -183,3 +183,68 @@ def evaluar_perfil(perfil):
         ]
 
     return recomendaciones_encontradas
+
+
+# TESTING
+
+if __name__ == "__main__":
+    # Caso 1: Perfil claro para Backend
+    perfil_prueba_backend = {
+        "rendimiento": {
+            "Cálculo": "Medio",
+            "Estadistica": "Medio",
+            "Estructura de datos": "Alto",  # Cumple
+            "Redes": "Medio",  # Cumple (no es Bajo)
+            "Sistemas Operativos": "Alto",  # Cumple (no es Bajo)
+            "Bases de datos": "Alto",  # Cumple
+        },
+        "intereses": [
+            'Entender "cómo funcionan" las cosas',  # Cumple
+            "Construcción practica",
+        ],
+    }
+
+    # Caso 2: Perfil claro para Frontend
+    perfil_prueba_frontend = {
+        "rendimiento": {
+            "Cálculo": "Bajo",
+            "Estadistica": "Bajo",
+            "Estructura de datos": "Medio",  # Cumple (no es Bajo)
+            "Redes": "Medio",
+            "Sistemas Operativos": "Bajo",
+            "Bases de datos": "Medio",
+        },
+        "intereses": [
+            "Diseño y aspecto visual",  # Cumple
+            "Construcción practica",  # Cumple
+            "Estrategia y negocios",
+        ],
+    }
+
+    # Caso 3: Perfil que no cumple NADA (Datos insuficientes o contradictorios)
+    perfil_prueba_generalista = {
+        "rendimiento": {
+            "Cálculo": "Bajo",
+            "Estadistica": "Bajo",
+            "Estructura de datos": "Bajo",  # Falla Frontend
+            "Redes": "Bajo",
+            "Sistemas Operativos": "Bajo",
+            "Bases de datos": "Bajo",
+        },
+        "intereses": [
+            "Seguridad"  # No es suficiente para la regla de Ciberseguridad
+        ],
+    }
+
+    print("--- Probando Perfil Backend ---")
+    recomendaciones_1 = evaluar_perfil(perfil_prueba_backend)
+    print(json.dumps(recomendaciones_1, indent=2, ensure_ascii=False))
+
+    print("\n--- Probando Perfil Frontend ---")
+    recomendaciones_2 = evaluar_perfil(perfil_prueba_frontend)
+    # Este perfil también cumple la regla de "Product Manager"
+    print(json.dumps(recomendaciones_2, indent=2, ensure_ascii=False))
+
+    print("\n--- Probando Perfil Generalista ---")
+    recomendaciones_3 = evaluar_perfil(perfil_prueba_generalista)
+    print(json.dumps(recomendaciones_3, indent=2, ensure_ascii=False))

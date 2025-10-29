@@ -31,4 +31,4 @@ $ flask --app=app run
 
 ## Testing
 
-# TODO
+El `engine.py` tiene 3 pruebas se puede ejecutar directamente para probar el funcionamiento del motor
