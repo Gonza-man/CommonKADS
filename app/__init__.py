@@ -1,25 +1,7 @@
 from flask import Flask, request, render_template
+from .engine import INTERESES_DISPONIBLES, ASIGNATURAS, evaluar_perfil
 
-app = Flask(_name_)
-
-INTERESES_DISPONIBLES = [
-    "Construcción practica",
-    "Diseño y aspecto visual",
-    "Automatizar tareas",
-    'Entender "cómo funcionan" las cosas',
-    "Estrategia y negocios",
-    'Sistemas de "bajo nivel"',
-    "Seguridad",
-]
-
-ASIGNATURAS = [
-    "Cálculo",
-    "Estadistica",
-    "Estructura de datos",
-    "Redes",
-    "Sistemas Operativos",
-    "Bases de datos",
-]
+app = Flask(name)
 
 
 @app.route("/")
