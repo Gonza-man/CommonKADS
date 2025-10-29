@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema experto</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+    integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
+    crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="container mx-auto max-w-3xl p-6">
+    <header class="bg-white p-6 rounded-lg shadow-md text-center mb-6">
+      <h1 class="text-3xl font-bold text-blue-700">Sistema de Orientación Vocacional para estudiantes de Informática
+      </h1>
+    </header>
+
+    <form hx-post="/orientar" hx-target="#resultados" hx-swap="innerHTML" id="orientacionForm"
+      class="bg-white p-8 rounded-lg shadow-md space-y-6">
+      <div>
+        <h2 class="text-xl font-semibold mb-3 text-blue-600">1. Rendimiento Académico</h2>
+        <p class="text-sm text-gray-500 mb-4">¿Cómo calificarías tu rendimiento (notas y facilidad) en estas área clave?
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Mapeamos notas a Alto/Medio/Bajo -->
+          {% for asignatura in asignaturas %}
+          <div class="select-wrapper">
+            <label for="{{asignatura}}" class="block text-sm font-medium text-gray-700">{{asignatura}}</label>
+            <select id="{{asignatura}}" name="{{asignatura}}"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+              <option value="">Seleccionar...</option>
+              <option value="Alto">Alto (6-7)</option>
+              <option value="Medio">Medio (4-5)</option>
+              <option value="Bajo">Bajo (1-4)</option>
+            </select>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mb-3 text-blue-600">2. Intereses Personales</h2>
+        <p class="text-sm text-gray-500 mb-4">¿Qué tipo de actividades disfrutas más? (Marca todas las que apliquen)</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {% for interes in intereses %}
+          <label
+            class="flex items-center space-x-2 p-3 bg-gray-50 rounded-md border border-gray-200 hover:bg-gray-100 cursor-pointer">
+            <input type="checkbox" name="intereses" value="{{ interes }}"
+              class="rounded text-blue-600 focus:ring-blue-500">
+            <span>{{ interes }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="pt-4 text-center">
+        <button type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+          Obtener Recomendación
+        </button>
+      </div>
+    </form>
+
+    <div id="resultados" class="mt-6">
+    </div>
+  </div>
+</body>
+
+</html>
